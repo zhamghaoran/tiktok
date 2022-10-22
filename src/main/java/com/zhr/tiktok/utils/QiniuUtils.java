@@ -1,4 +1,4 @@
-package com.zhr.blog01.utils;
+package com.zhr.tiktok.utils;
 
 import com.alibaba.fastjson2.JSON;
 import com.qiniu.http.Response;
@@ -16,9 +16,9 @@ import java.io.IOException;
 public class QiniuUtils {
     public static final String url = "http://rjz9q78si.hn-bkt.clouddn.com";
 
-    private static String accessKey = "s964IOInx469qa-MievPrRw_iF5mNhWJuaOmYVgN";
+    private static String accessKey = "";
 
-    private static String accessSecretKey = "cII6zlZ70hcaDLYc1czrS4PKAiM-X5a46raMmkSU";
+    private static String accessSecretKey = "";
     
     public boolean upload(MultipartFile file,String filename) {
         // 构造一个带指定region的对象配置类

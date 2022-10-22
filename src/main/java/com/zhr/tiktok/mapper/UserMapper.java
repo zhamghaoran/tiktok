@@ -1,2 +1,10 @@
-package com.zhr.tiktok.mapper;public interface UserMapper {
+package com.zhr.tiktok.mapper;
+
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.zhr.tiktok.pojo.User;
+import org.apache.ibatis.annotations.Mapper;
+
+@Mapper
+public interface UserMapper extends BaseMapper<User> {
+
 }
