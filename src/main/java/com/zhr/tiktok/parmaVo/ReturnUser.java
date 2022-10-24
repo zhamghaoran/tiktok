@@ -1,5 +1,6 @@
 package com.zhr.tiktok.parmaVo;
 
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.fasterxml.jackson.annotation.JsonAlias;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
@@ -11,11 +12,11 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class ReturnUser {
     private Integer id;
-    @JsonAlias("name")
-    private String username;
-    @JsonAlias("follow_count")
-    private Integer follow;
-    @JsonAlias("follower_count")
-    private Integer follower;
+    @TableField("username")
+    private String name;
+    @TableField("follow")
+    private Integer follow_count;
+    @TableField("follower")
+    private Integer follower_count;
     private boolean is_follow;
 }

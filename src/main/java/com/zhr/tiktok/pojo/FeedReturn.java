@@ -6,9 +6,9 @@ import lombok.Data;
 @Data
 public class FeedReturn extends Response {
     private Long next_time;
-    private video_list video_list;
+    private video_list[] video_list;
 
-    static public FeedReturn success(String message,video_list list,Long next_time) {
+    static public FeedReturn success(String message,video_list[] list,Long next_time) {
         FeedReturn feedReturn = new FeedReturn();
         feedReturn.setStatus_msg(message);
         feedReturn.setStatus_code(0);

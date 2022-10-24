@@ -12,10 +12,11 @@ import org.springframework.stereotype.Service;
 public class UploadServiceImpl implements UploadService {
     @Autowired
     private VideoMapper videoMapper;
+    static String url1 = "http://rjz9q78si.hn-bkt.clouddn.com/%E5%8F%B2%E5%B0%94%E7%89%B9%E5%B0%94%20%284%29.png";
 
     @Override
     public MessageInBackground uploadVideo(String url, User user, String title) {
-        Video video = new Video(0, user.getUsername(), url, null, 0, title,System.currentTimeMillis());
+        Video video = new Video(0, user.getUsername(), url, url1, 0,0, title,System.currentTimeMillis());
         int insert = videoMapper.insert(video);
         if (insert > 0) {
             return MessageInBackground.success(null);

@@ -6,7 +6,6 @@ import com.zhr.tiktok.pojo.User;
 import com.zhr.tiktok.service.FeedService;
 import com.zhr.tiktok.utils.MessageInBackground;
 import com.zhr.tiktok.utils.Token;
-import org.apache.catalina.valves.rewrite.RewriteCond;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -21,7 +20,7 @@ public class FeedController {
     private Token tokenn;
     @RequestMapping("/douyin/feed")
     public FeedReturn Feed(String latest_time, String token) {
-        if (StringUtils.isNullOrEmpty(latest_time)) {
+        if (StringUtils.isNullOrEmpty(latest_time) || latest_time.equals("0")) {
             latest_time = String.valueOf(System.currentTimeMillis());
         }
         User user = this.tokenn.CheckToken(token);
@@ -35,6 +34,7 @@ public class FeedController {
         if (!select.isSuccess()) {
             return FeedReturn.fail(select.getMessage());
         }
+        System.out.println(select.getMap().get("feed"));
         return (FeedReturn) select.getMap().get("feed");
     }
 }

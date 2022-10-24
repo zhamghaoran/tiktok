@@ -14,10 +14,10 @@ public class followServiceImpl implements FollowService {
     private FollowMapper followMapper;
 
     @Override
-    public boolean select(Integer id, String user_id) {
+    public boolean select(Integer userid, String videoId) {
         LambdaQueryWrapper<follow> queryWrapper = new LambdaQueryWrapper<>();
-        queryWrapper.eq(follow::getFromm,id);
-        queryWrapper.eq(follow::getToo,Integer.parseInt(user_id));
+        queryWrapper.eq(follow::getFromm,userid);
+        queryWrapper.eq(follow::getToo,Integer.parseInt(videoId));
         follow follow = followMapper.selectOne(queryWrapper);
         return follow != null;
     }

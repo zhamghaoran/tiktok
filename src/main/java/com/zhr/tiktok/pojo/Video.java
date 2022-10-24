@@ -19,6 +19,7 @@ public class Video {
     private String coverUrl;
     @TableField("favorite_count")
     private Integer favoriteCount;
+    private Integer commentCount;
     private String title;
     private Long createTime;
 

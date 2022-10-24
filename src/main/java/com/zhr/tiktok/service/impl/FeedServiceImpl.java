@@ -35,7 +35,10 @@ public class FeedServiceImpl implements FeedService {
         userLambdaQueryWrapper.eq(User::getUsername, user);
         User user1 = userMapper.selectOne(userLambdaQueryWrapper);
         ReturnUser user2 = new ReturnUser();
-        BeanUtils.copyProperties(user1, user2);
+        user2.setFollow_count(user1.getFollow());
+        user2.setFollower_count(user1.getFollower());
+        user2.setName(user1.getUsername());
+        user2.setId(user1.getId());
         user2.set_follow(followService.select(user1.getId(), String.valueOf(id)));
         return user2;
 
@@ -48,9 +51,12 @@ public class FeedServiceImpl implements FeedService {
         video_list.setId(video.getId());
         video_list.setTitle(video.getTitle());
         video_list.setPlay_url(video.getUrl());
-        video_list.setCover_url(video.getCoverUrl());
         video_list.setId(video.getId());
+        video_list.setComment_count(video.getCommentCount());
+        video_list.setFavorite_count(video.getFavoriteCount());
+        video_list.setCover_url(video.getCoverUrl());
         return video_list;
+
     }
 
     @Override
@@ -70,7 +76,9 @@ public class FeedServiceImpl implements FeedService {
         }
         feedReturn.setNext_time(videos.getCreateTime());
         video_list videoList = getVideoList(returnUser, videos);
-        feedReturn.setVideo_list(videoList);
+        video_list[] v = new video_list[1];
+        v[0] = videoList;
+        feedReturn.setVideo_list(v);
         feedReturn.setStatus_code(0);
         feedReturn.setStatus_msg("success");
         Map<String ,Object> map = new HashMap<>();

@@ -27,11 +27,11 @@ public class UploadVideoController {
         if (user == null) {
             return Response.fail("无效的Token");
         }
-        boolean upload = qiniuUtils.upload(multipartFile, title);
+        boolean upload = qiniuUtils.upload(multipartFile, title + multipartFile.getOriginalFilename());
         if (!upload) {
             return Response.fail("上传视频失败");
         }
-        MessageInBackground messageInBackground = uploadService.uploadVideo(QiniuUtils.url + "/" + title, user, title);
+        MessageInBackground messageInBackground = uploadService.uploadVideo(QiniuUtils.url + "/" + title + multipartFile.getOriginalFilename(), user, title);
         if (!messageInBackground.isSuccess()) {
             return Response.fail("失败");
         }
