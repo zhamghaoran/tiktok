@@ -17,6 +17,6 @@ public class MessageInBackground {
         return new MessageInBackground(false,message,null);
     }
     public static MessageInBackground success(Map<String,?> map) {
-        return new MessageInBackground(true,null,map);
+        return new MessageInBackground(true,"成功",map);
     }
 }

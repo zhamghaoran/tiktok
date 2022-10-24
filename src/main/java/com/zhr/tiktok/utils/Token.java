@@ -6,6 +6,7 @@ import com.zhr.tiktok.pojo.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Component;
+import org.springframework.util.DigestUtils;
 
 import java.time.Duration;
 import java.util.Objects;
@@ -19,11 +20,10 @@ public class Token {
     static Integer salt = 123456;
 
     public String CreateToken(User user) {
-        long l = System.currentTimeMillis() % new Random().nextInt(100) + 1;
-        l += salt + new Random().nextInt(10000010);
-        redisTemplate.opsForValue().set(String.valueOf(l), JSON.toJSONString(user));
-        redisTemplate.expire(String.valueOf(l), Duration.ofMinutes(5));
-        return String.valueOf(l);
+        String s = DigestUtils.md5DigestAsHex((user.getUsername() + user.getId() + System.currentTimeMillis()).getBytes());
+        redisTemplate.opsForValue().set(s, JSON.toJSONString(user));
+        redisTemplate.expire(s, Duration.ofMinutes(10));
+        return s;
     }
 
     public User CheckToken(String token) {

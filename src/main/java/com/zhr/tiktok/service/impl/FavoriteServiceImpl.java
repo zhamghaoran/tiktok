@@ -61,7 +61,7 @@ public class FavoriteServiceImpl implements FavoriteAction {
         }
         return videos;
     }
-    public ReturnUser getReturnUser(User user,User host) {
+    public ReturnUser getReturnUser(User user) {
         ReturnUser returnUser = new ReturnUser();
         returnUser.setId(user.getId());
         returnUser.setFollower_count(user.getFollower());
@@ -83,12 +83,13 @@ public class FavoriteServiceImpl implements FavoriteAction {
     }
     public video_list[] getlist(List<Video> videos,User host) {
         video_list[] res =  new video_list[videos.size()];
-        for(Video i : videos) {
+        for(int i = 0;i < videos.size();i ++) {
             LambdaQueryWrapper<User> userLambdaQueryWrapper = new LambdaQueryWrapper<>();
-            userLambdaQueryWrapper.eq(User::getUsername,i.getUsername());
+            userLambdaQueryWrapper.eq(User::getUsername,videos.get(i).getUsername());
             User user = userMapper.selectOne(userLambdaQueryWrapper);
-            ReturnUser returnUser = getReturnUser(user,host);
-            video_list oneVideoList = getOneVideoList(returnUser, i,host);
+            ReturnUser returnUser = getReturnUser(user);
+            video_list oneVideoList = getOneVideoList(returnUser, videos.get(i),host);
+            res[i] = oneVideoList;
         }
         return res;
     }
