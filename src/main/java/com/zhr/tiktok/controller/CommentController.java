@@ -57,8 +57,7 @@ public class CommentController {
         }
         MessageInBackground res = commentService.getCommentList(video_id);
         if (res.isSuccess()) {
-            CommentList commentList = (CommentList) res.getMap().get("CommentList");
-            return commentList;
+            return (CommentList) res.getMap().get("CommentList");
         } else {
             return (CommentList) CommentList.fail("获取列表失败");
         }
