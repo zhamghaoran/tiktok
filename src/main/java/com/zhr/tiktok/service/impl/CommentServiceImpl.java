@@ -66,7 +66,7 @@ public class CommentServiceImpl implements CommentService {
         comment_list[] comment_list = new comment_list[comments.size()];
         for (int i = 0;i < comments.size();i ++) {
             com.zhr.tiktok.pojo.comment_list comment_list1 = new comment_list();
-            comment_list1.setId(Integer.valueOf(comments.get(i).getVideoId()));
+            comment_list1.setId(Integer.valueOf(comments.get(i).getCommentId()));
             comment_list1.setUser(findUser(comments.get(i).getUserId()));
             comment_list1.setContent(comments.get(i).getCommentDetail());
             comment_list1.setCreate_time(comments.get(i).getData());

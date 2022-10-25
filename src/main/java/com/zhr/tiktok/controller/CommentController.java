@@ -22,13 +22,13 @@ public class CommentController {
     private Token redis;
 
     @RequestMapping(value = "/douyin/comment/action/", method = RequestMethod.POST)
-    public CommentReturn CommentAction(String token, String video_id, String action_id, String comment_text, String comment_id) {
+    public CommentReturn CommentAction(String token, String video_id, String action_type, String comment_text, String comment_id) {
         User user = redis.CheckToken(token);
         if (user == null) {
             return CommentReturn.fail("token无效");
         }
         MessageInBackground res;
-        if (action_id.equals("1")) {
+        if (action_type.equals("1")) {
             res = commentService.comment(user, video_id, comment_id, comment_text);
             if (!res.isSuccess()) {
                 return CommentReturn.fail(res.getMessage());
