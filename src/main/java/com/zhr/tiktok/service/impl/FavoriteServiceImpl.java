@@ -61,7 +61,7 @@ public class FavoriteServiceImpl implements FavoriteAction {
         }
         return videos;
     }
-    public ReturnUser getReturnUser(User user) {
+    public static ReturnUser getReturnUser(User user) {
         ReturnUser returnUser = new ReturnUser();
         returnUser.setId(user.getId());
         returnUser.setFollower_count(user.getFollower());
