@@ -15,6 +15,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.zhr.tiktok.pojo.*;
+import org.springframework.transaction.annotation.Transactional;
 import sun.rmi.server.MarshalOutputStream;
 
 import java.io.ObjectOutputStream;
@@ -22,6 +23,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Service
+@Transactional
 public class FeedServiceImpl implements FeedService {
     @Autowired
     private VideoMapper videoMapper;

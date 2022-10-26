@@ -7,8 +7,10 @@ import com.zhr.tiktok.parmaVo.LoginParam;
 import com.zhr.tiktok.pojo.User;
 import com.zhr.tiktok.service.LoginService;
 import com.zhr.tiktok.utils.MessageInBackground;
+import com.zhr.tiktok.utils.Token;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.DigestUtils;
 import org.springframework.util.StringUtils;
 
@@ -17,9 +19,12 @@ import java.util.List;
 import java.util.Map;
 
 @Service
+@Transactional
 public class LoginServiceImpl implements LoginService {
     @Autowired
     private UserMapper userMapper;
+    @Autowired
+    private Token redis;
 
     static String salt = "123456";
 
@@ -46,10 +51,18 @@ public class LoginServiceImpl implements LoginService {
             return MessageInBackground.failed("参数异常");
         }
         String newPassword = DigestUtils.md5DigestAsHex((loginParam.getPassword() + salt).getBytes());
-        LambdaQueryWrapper<User> queryWrapper = new LambdaQueryWrapper<>();
-        queryWrapper.eq(User::getUsername, loginParam.getUsername());
-        queryWrapper.eq(User::getPassword, newPassword);
-        User user = userMapper.selectOne(queryWrapper);
+        User user = null;
+        user = redis.CheckLogin(new User(0,loginParam.getUsername(),newPassword,0,0));
+        if (user != null ){
+            Map<String ,User> map = new HashMap<>();
+            map.put("user",user);
+            return MessageInBackground.success(map);
+        } else {
+            LambdaQueryWrapper<User> queryWrapper = new LambdaQueryWrapper<>();
+            queryWrapper.eq(User::getUsername, loginParam.getUsername());
+            queryWrapper.eq(User::getPassword, newPassword);
+            user = userMapper.selectOne(queryWrapper);
+        }
         if (user == null) {
             return MessageInBackground.failed("账号密码错误");
         }
@@ -58,6 +71,5 @@ public class LoginServiceImpl implements LoginService {
             map.put("user",user);
             return MessageInBackground.success(map);
         }
-
     }
 }

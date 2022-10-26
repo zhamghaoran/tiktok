@@ -17,10 +17,10 @@ import java.util.Random;
 public class Token {
     @Autowired
     private RedisTemplate<String, String> redisTemplate;
-    static Integer salt = 123456;
+    static String  salt = "adfhjikadhahahdsrg";
 
     public String CreateToken(User user) {
-        String s = DigestUtils.md5DigestAsHex((user.getUsername() + user.getId() + System.currentTimeMillis()).getBytes());
+        String s = DigestUtils.md5DigestAsHex((user.getUsername() + user.getPassword() + salt).getBytes());
         redisTemplate.opsForValue().set(s, JSON.toJSONString(user));
         redisTemplate.expire(s, Duration.ofMinutes(10));
         return s;
@@ -32,6 +32,11 @@ public class Token {
         }
         String s = redisTemplate.opsForValue().get(token);
         return Objects.requireNonNull(JSON.parseObject(s)).toJavaObject(User.class);
+    }
+    public User CheckLogin(User user) {
+        String s = DigestUtils.md5DigestAsHex((user.getUsername() + user.getPassword() + salt).getBytes());
+        String s1 = redisTemplate.opsForValue().get(s);
+        return s1 != null ?Objects.requireNonNull(JSON.parseObject(s1)).toJavaObject(User.class) : null;
     }
 }
 

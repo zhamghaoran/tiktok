@@ -1,17 +1,16 @@
 package com.zhr.tiktok.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import com.baomidou.mybatisplus.extension.api.R;
 import com.zhr.tiktok.mapper.FocusMapper;
 import com.zhr.tiktok.mapper.UserMapper;
 import com.zhr.tiktok.parmaVo.ReturnUser;
 import com.zhr.tiktok.pojo.FocusRelation;
 import com.zhr.tiktok.pojo.User;
-import com.zhr.tiktok.pojo.focusList;
 import com.zhr.tiktok.service.FocusOnService;
 import com.zhr.tiktok.utils.MessageInBackground;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashMap;
 import java.util.List;
@@ -19,6 +18,7 @@ import java.util.Map;
 
 
 @Service
+@Transactional
 public class FocusServiceImpl implements FocusOnService {
     @Autowired
     private FocusMapper focusMapper;

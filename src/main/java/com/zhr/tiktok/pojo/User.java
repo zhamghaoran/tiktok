@@ -16,4 +16,8 @@ public class User {
     private String password;
     private Integer follow;
     private Integer follower;
+    public User (String username,String password) {
+        this.username = username;
+        this.password = password;
+    }
 }

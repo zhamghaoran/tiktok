@@ -12,6 +12,7 @@ import com.zhr.tiktok.service.CommentService;
 import com.zhr.tiktok.utils.MessageInBackground;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashMap;
 import java.util.List;
@@ -20,6 +21,7 @@ import java.util.Map;
 import static com.zhr.tiktok.service.impl.FavoriteServiceImpl.getReturnUser;
 
 @Service
+@Transactional
 public class CommentServiceImpl implements CommentService {
     @Autowired
     private CommentMapper commentMapper;
