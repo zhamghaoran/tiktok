@@ -1,5 +1,6 @@
 package com.zhr.tiktok.controller;
 
+import com.zhr.tiktok.Common.aop.LogAnnotation;
 import com.zhr.tiktok.parmaVo.LoginParam;
 import com.zhr.tiktok.pojo.LoginReturnParam;
 import com.zhr.tiktok.pojo.User;
@@ -23,6 +24,7 @@ public class LoginController {
         MessageInBackground login = loginService.Register(loginParam);
         return getLoginReturnParam(login);
     }
+    @LogAnnotation(module = "登录")
     @RequestMapping("/douyin/user/login/")
     public LoginReturnParam Login(LoginParam loginParam) {
         MessageInBackground login = loginService.Login(loginParam);

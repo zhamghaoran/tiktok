@@ -1,6 +1,7 @@
 package com.zhr.tiktok.controller;
 
 import com.qiniu.util.StringUtils;
+import com.zhr.tiktok.Common.cache.Cache;
 import com.zhr.tiktok.pojo.FeedReturn;
 import com.zhr.tiktok.pojo.User;
 import com.zhr.tiktok.service.FeedService;
@@ -18,6 +19,7 @@ public class FeedController {
     private FeedService feedService;
     @Autowired
     private Token tokenn;
+    @Cache(name = "video")
     @RequestMapping("/douyin/feed")
     public FeedReturn Feed(String latest_time, String token) {
         if (StringUtils.isNullOrEmpty(latest_time) || latest_time.equals("0")) {
